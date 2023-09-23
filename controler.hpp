@@ -10,17 +10,19 @@ namespace SnakeGame
 
 class Controler
 {
-
-enum Direction : unsigned char {UP = 0, DOWN = 1, LEFT = 2, RIGHT = 3, NONE = 4};
-
 public:
+    enum Direction : unsigned int {UP = 0, DOWN = 1, LEFT = 2, RIGHT = 3};
+    
     explicit Controler(Board& board, Snake& snake);
 
-    void HandleInput(Direction direction);
+    void HandleInput(int input);
+    bool MoveSnake();
+    Direction GetDirection() const;
 
 private:
     Board& m_board;
     Snake& m_snake;
+    Direction m_direction;
 };
 
 }

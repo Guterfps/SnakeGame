@@ -1,5 +1,5 @@
 
-#include <iostream>
+#include <algorithm>
 
 #include "raylib.h"
 
@@ -18,7 +18,7 @@ Board::Board(std::size_t cols, std::size_t rows, std::size_t cellSize) :
         size_t row = i * cols;
         for (size_t j = 0; j < m_cols; ++j)
         {
-            m_board[row + j] = Cell(j, i, Cell::Type::EMPTY);
+            m_board[row + j] = Cell(j, i, m_cellSize, Cell::Type::EMPTY);
         }
     }
 }
@@ -27,29 +27,37 @@ void Board::Draw() const
 {
     for (const auto& cell : m_board)
     {
-        std::size_t x = cell.m_posX * m_cellSize;
-        std::size_t y = cell.m_posY * m_cellSize;
-
-        switch (cell.m_type)
-        {
-            case Cell::Type::EMPTY:
-                DrawRectangle(x, y, m_cellSize, m_cellSize, BLACK);
-                break;
-            case Cell::Type::SNAKE:
-                DrawRectangle(x, y, m_cellSize, m_cellSize, GREEN);
-                break;
-            case Cell::Type::FOOD:
-                DrawRectangle(x, y, m_cellSize, m_cellSize, RED);
-                break;
-            default:
-                break;
-        }
+        cell.Draw();
     }
 }
 
 void Board::Update(const Cell& cell, Cell::Type type)
 {
-    m_board[cell.m_posY * m_cols + cell.m_posX].m_type = type;
+    m_board[cell.GetPosY() * m_cols + cell.GetPosX()].SetType(type);
+}
+
+void Board::Clear()
+{
+    std::for_each(m_board.begin(), m_board.end(), 
+    [](Cell& cell)
+    {
+        cell.SetType(Cell::Type::EMPTY);
+    });
+}
+
+std::size_t Board::GetCols() const
+{
+    return m_cols;
+}
+
+std::size_t Board::GetRows() const
+{
+    return m_rows;
+}
+
+const Cell& Board::GetCell(std::size_t col, std::size_t row) const
+{
+    return m_board[row * m_cols + col];
 }
 
 } // namespace SnakeGame

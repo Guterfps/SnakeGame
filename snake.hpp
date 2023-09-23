@@ -12,13 +12,15 @@ namespace SnakeGame
 class Snake
 {
 public:
-    Snake(std::size_t posX, std::size_t posY);
+    Snake(const Cell& head);
 
-    bool Move(std::size_t posX, std::size_t posY);
-    void Grow();
+    bool Move(const Cell& toCell);
+    void Grow(const Cell& addTail);
+    void Reset(const Cell& head);
 
     const Cell& GetHead() const;
     const Cell& GetTail() const;
+    std::size_t GetLength() const;
 
 private:
     std::list<Cell> m_snake;
