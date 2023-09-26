@@ -82,11 +82,11 @@ void Game::Input()
 {
     if (!m_isGameOver)
     {
-        m_controler.HandleInput(GetKeyPressed());
+        m_controler.HandleInput();
     }
     else
     {
-        if (KEY_SPACE == GetKeyPressed())
+        if (IsKeyPressed(KEY_SPACE))
         {
             Restart();
         }

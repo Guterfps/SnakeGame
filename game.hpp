@@ -36,7 +36,7 @@ private:
     static constexpr int CELL_SIZE = 20;
     static constexpr int BOARD_WIDTH = WINDOW_WIDTH / CELL_SIZE;
     static constexpr int BOARD_HEIGHT = WINDOW_HEIGHT / CELL_SIZE;
-    static constexpr double SNAKE_UPDATE_INTERVAL = 0.15;
+    static constexpr double SNAKE_UPDATE_INTERVAL = 0.1;
     static constexpr double FOOD_UPDATE_INTERVAL = 2.5;
 
     void Update();

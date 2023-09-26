@@ -15,7 +15,7 @@ public:
     
     explicit Controler(Board& board, Snake& snake);
 
-    void HandleInput(int input);
+    void HandleInput();
     bool MoveSnake();
     Direction GetDirection() const;
 
@@ -23,6 +23,9 @@ private:
     Board& m_board;
     Snake& m_snake;
     Direction m_direction;
+    Direction m_prevMove;
+
+    void CheckValidDirection();
 };
 
 }
