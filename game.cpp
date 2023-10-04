@@ -12,7 +12,7 @@ namespace SnakeGame
 
 Game::Game() : m_board(BOARD_WIDTH, BOARD_HEIGHT, CELL_SIZE), 
                 m_snake(Cell(BOARD_WIDTH >> 1, BOARD_HEIGHT >> 1, CELL_SIZE)), 
-                m_controler(m_board, m_snake), m_score(0),
+                m_controler(m_board, m_snake),
                 m_rd(), m_gen(m_rd()), 
                 m_distribCols(0, m_board.GetCols() - 1),
                 m_distribRows(0, m_board.GetRows() - 1)

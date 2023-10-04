@@ -11,13 +11,17 @@ Controler::Controler(Board& board, Snake& snake) :
 
 void Controler::HandleInput()
 {
+    bool isRight = IsKeyPressed(KEY_RIGHT);
+    bool isLeft = IsKeyPressed(KEY_LEFT);
+    bool isUp = IsKeyPressed(KEY_UP);
+    bool isDown = IsKeyPressed(KEY_DOWN);
+
     m_direction = static_cast<Direction>(
-    Direction::RIGHT * IsKeyPressed(KEY_RIGHT) +
-    Direction::LEFT * IsKeyPressed(KEY_LEFT) +
-    Direction::UP * IsKeyPressed(KEY_UP) +
-    Direction::DOWN * IsKeyPressed(KEY_DOWN) +
-    m_direction * (!IsKeyPressed(KEY_RIGHT) & !IsKeyPressed(KEY_LEFT) & 
-                !IsKeyPressed(KEY_UP) & !IsKeyPressed(KEY_DOWN)));
+    Direction::RIGHT * isRight +
+    Direction::LEFT * isLeft +
+    Direction::UP * isUp +
+    Direction::DOWN * isDown +
+    m_direction * (!isRight & !isLeft & !isUp & !isDown));
 }
 
 Controler::Direction Controler::GetDirection() const

@@ -23,7 +23,6 @@ private:
     Board m_board;
     Snake m_snake;
     Controler m_controler;
-    size_t m_score;
     bool m_isGameOver{false};
     std::random_device m_rd;
     std::mt19937 m_gen;
