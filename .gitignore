@@ -2,3 +2,4 @@
 *.out
 *.exe
 !zig_snake.exe
+zig_snake/zig-cache

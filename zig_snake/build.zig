@@ -28,12 +28,29 @@ pub fn build(b: *std.Build) !void {
     rl.link(b, exe, target, optimize);
     exe.addModule("raylib", raylib);
     exe.addModule("raylib-math", raylib_math);
+    
     exe.addIncludePath(std.Build.LazyPath { .path = "src" });
     exe.addCSourceFile(.{ .file = .{ .path = "src/bindings.cpp" }, .flags = &.{"-std=c++11"} });
-    exe.addCSourceFile(.{ .file = .{ .path = "../game.cpp" }, .flags = &.{"-std=c++11"} });
-    exe.addCSourceFile(.{ .file = .{ .path = "../board.cpp" }, .flags = &.{"-std=c++11"} });
-    exe.addCSourceFile(.{ .file = .{ .path = "../snake.cpp" }, .flags = &.{"-std=c++11"} });
-    exe.addCSourceFile(.{ .file = .{ .path = "../controler.cpp" }, .flags = &.{"-std=c++11"} });
+
+    const dir = try std.fs.cwd().openIterableDir("../", .{});
+    var iterator = dir.iterate();
+    var slices: [2] []const u8 = undefined;
+    slices[0] = "../";
+    const allocator = std.heap.page_allocator;
+
+    while (try iterator.next()) |path| {
+        if (std.mem.endsWith(u8 , path.name, ".cpp") and 
+            !std.mem.eql(u8, path.name, "main.cpp"))
+        {
+            slices[1] = path.name;
+            var fullPath = try std.mem.concat(allocator, u8, &slices);
+            defer allocator.free(fullPath);
+
+            exe.addCSourceFile(.{ .file = .{ .path = fullPath }, 
+                                .flags = &.{"-std=c++11"} });
+        }
+    }
+
     exe.linkSystemLibrary("c++");
 
     const run_cmd = b.addRunArtifact(exe);
