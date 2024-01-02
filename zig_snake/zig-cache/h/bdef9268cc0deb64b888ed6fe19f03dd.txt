@@ -1,2 +1,0 @@
-0
-26947 1128067 1696255756000000000 51cb4777d030ca7cd73eb5fef1931f8e 1 libc/mingw/lib-common/msvcrt.def.in
